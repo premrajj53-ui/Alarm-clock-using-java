@@ -2,14 +2,20 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.Scanner;
 
 public class AlamClock implements Runnable{
 
     private  final LocalTime alarmTime;
     private final String filepath;
-    AlamClock (LocalTime alarmTime, String filepath){
+    private final Scanner sc;
+
+
+    AlamClock (LocalTime alarmTime, String filepath, Scanner sc){
         this.alarmTime=alarmTime;
         this.filepath=filepath;
+        this.sc=sc;
+
     }
     @Override
     public void run(){
@@ -23,6 +29,7 @@ public class AlamClock implements Runnable{
                 System.out.printf("\r%02d:%02d:%02d", now.getHour(),
                                                    now.getMinute(),
                                                    now.getSecond());
+
             } catch (InterruptedException e) {
                 System.out.println("Thtead was interrrupted");
             }
@@ -37,7 +44,10 @@ public class AlamClock implements Runnable{
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             clip.start();
-
+            System.out.println("prees enter to stop alarm:");
+            sc.next();
+            clip.stop();
+             sc.close();
 
         } catch (UnsupportedAudioFileException e) {
             System.out.println("audio file format not supported");
