@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.sql.SQLOutput;
 import java.time.LocalTime;
 
@@ -23,6 +24,7 @@ public class AlamClock implements Runnable{
                 System.out.println("Thtead was interrrupted");
             }
         }
-
+        System.out.printf("\nAlam Rings!!!!!");
+        Toolkit.getDefaultToolkit().beep();
     }
 }
