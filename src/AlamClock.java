@@ -1,12 +1,15 @@
-import java.awt.*;
-import java.sql.SQLOutput;
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalTime;
 
 public class AlamClock implements Runnable{
 
     private  final LocalTime alarmTime;
-    AlamClock (LocalTime alarmTime){
+    private final String filepath;
+    AlamClock (LocalTime alarmTime, String filepath){
         this.alarmTime=alarmTime;
+        this.filepath=filepath;
     }
     @Override
     public void run(){
@@ -25,6 +28,24 @@ public class AlamClock implements Runnable{
             }
         }
         System.out.printf("\nAlam Rings!!!!!");
-        Toolkit.getDefaultToolkit().beep();
+       playSound(filepath);
+    }
+    private void playSound(String filepath) {
+        File audioFile = new File(this.filepath);
+
+        try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile)) {
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+
+
+        } catch (UnsupportedAudioFileException e) {
+            System.out.println("audio file format not supported");
+        } catch (LineUnavailableException e) {
+            System.out.println("audio unavailable!");
+        } catch (IOException e) {
+            System.out.println("something went wrong !");
+        }
+
     }
 }

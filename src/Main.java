@@ -21,7 +21,7 @@ public class Main {
                 System.out.println("Invalid format! USE HH:MM:SS"+e);
 
             }
-            AlamClock alamClock = new AlamClock(alarmTime);
+            AlamClock alamClock = new AlamClock(alarmTime,filepath);
             Thread alarmThread = new Thread (alamClock);
             alarmThread.start();
 
