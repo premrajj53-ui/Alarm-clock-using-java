@@ -36,6 +36,7 @@ public class AlamClock implements Runnable{
         }
         System.out.printf("\nAlam Rings!!!!!");
        playSound(filepath);
+
     }
     private void playSound(String filepath) {
         File audioFile = new File(this.filepath);
@@ -45,7 +46,7 @@ public class AlamClock implements Runnable{
             clip.open(audioStream);
             clip.start();
             System.out.println("prees enter to stop alarm:");
-            sc.next();
+            sc.nextLine();
             clip.stop();
              sc.close();
 
